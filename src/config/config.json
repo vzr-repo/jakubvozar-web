@@ -26,7 +26,6 @@
     "expire_days": 1
   },
   "params": {
-    "contact_form_action": "#",
     "copyright": "Jakub Vozar © 2026"
   },
   "navigation_button": {
