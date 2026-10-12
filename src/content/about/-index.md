@@ -1,35 +1,29 @@
 ---
-title: "Ahoj, jsem Jakub Vozar!"
+title: "Ahoj, jsem Jakub Vozar"
 meta_title: "O mně"
-description: "Data & BI Engineer"
+description: "Od controllingu přes Power BI k data engineeringu."
 image: "/images/image-placeholder.png"
 draft: false
 ---
 
-Jsem senior Power BI specialista s vášní pro data engineering a analýzu finančních trhů. Aktivně buduju dovednosti v DE stacku — Python, Spark, AWS — s cílem být senior Data Engineer.
+<!-- TODO Jakub: přepsat svým hlasem, doplnit roky a firmy, jestli chceš -->
 
-### Co stavím
+### Controlling
 
-Tento web je živý důkaz mé práce. Projekt **Trading Data Pipeline** je end-to-end datová pipeline která:
+Začínal jsem v controllingu. Excel, reporty, čísla pro vedení. Tam jsem pochopil, že nejvíc času nezabere analýza, ale shánění a čištění dat.
 
-* Stahuje forex a akciová data z veřejných API (yfinance, Alpha Vantage)
-* Ukládá data v Parquet formátu pro efektivní zpracování
-* Backtestuje trading strategie pomocí Python knihoven
-* Publikuje interaktivní výsledky jako živý dashboard
+### Power BI
 
-### Technologie
+Tak jsem se dostal k Power BI. Dnes je to moje hlavní práce: datové modely, míry, reporty. A čím dál častěji otázka, jestli nad modelem dokáže odpovídat AI.
 
-* **Python** — pandas, Plotly, backtesting.py
-* **Data formáty** — Parquet, CSV
-* **Web** — Astro, Tailwind CSS, Cloudflare Workers
-* **Cloud (v plánu)** — AWS S3, Glue, Athena
+### Data engineering
 
-### Trading research
+Dashboard je jen tak dobrý, jak dobrá jsou data pod ním. Proto si stavím i to, co je pod ním: Python, Postgres, noční načítání dat. Ukázky jsou v [dashboardech](/dashboardy) a v [blogu](/blog).
 
-Swing trading a investování mě baví jako disciplína která kombinuje analytické myšlení s psychologií rozhodování. Inspiruji se knihami jako Trading in the Zone (Mark Douglas) a Trading for a Living (Alexander Elder).
+### Co nabízím
 
-Cíl není jen backtestovat strategie — ale pochopit proč fungují, kdy selhávají, a jak to celé propojit s kvalitními daty.
+[Audit Power BI modelu](/audit): za týden zjistím, jestli je váš model připravený na AI.
 
 ### Kontakt
 
-Najdeš mě na [GitHubu](https://github.com/vzr-repo) nebo [LinkedInu](https://www.linkedin.com/in/jakubvozar).
+E-mail a LinkedIn najdete na stránce [Kontakt](/kontakt).
