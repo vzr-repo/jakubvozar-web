@@ -1,0 +1,144 @@
+---
+import Base from "@/layouts/Base.astro";
+import { FaCheck } from "react-icons/fa";
+
+const checks = [
+  {
+    title: "Pojmenování",
+    text: "Tabulky, sloupce a míry mají názvy, kterým rozumí člověk i AI. Žádné Sheet1 nebo Column3.",
+  },
+  {
+    title: "Popisy",
+    text: "Míry a sloupce mají vyplněné popisy (descriptions). AI z nich čte, co číslo znamená.",
+  },
+  {
+    title: "Schéma a relace",
+    text: "Hvězdicové schéma, jednoznačné relace, žádné obousměrné filtry bez důvodu.",
+  },
+  {
+    title: "Míry a formáty",
+    text: "Míry místo implicitních agregací, jednotné formáty a jednotky.",
+  },
+  {
+    title: "Kalendář",
+    text: "Kalendářní tabulka označená jako date table.",
+  },
+  {
+    title: "Skryté sloupce a synonyma",
+    text: "Technické sloupce skryté, synonyma a lingvistické schéma nastavené.",
+  },
+  {
+    title: "Bezpečnost",
+    text: "RLS a citlivé sloupce.",
+  },
+  {
+    title: "Dokumentace",
+    text: "Datový slovník, zdroje dat, jak čerstvá data jsou.",
+  },
+];
+
+const steps = [
+  { day: "Den 1", text: "Přístup k modelu a krátký rozhovor: k čemu model slouží a kdo s ním pracuje." },
+  { day: "Dny 2–4", text: "Procházím model podle kontrolních bodů." },
+  { day: "Den 5", text: "Předám výstup a projdeme ho spolu na hovoru." },
+];
+
+const outputs = [
+  "Report se skóre AI-readiness po oblastech",
+  "Seznam úprav podle priority: rychlé, střední, větší",
+  "Datový slovník modelu",
+];
+
+// TODO Jakub: odpovědi zkontrolovat a přepsat svým hlasem, případně doplnit cenu
+const faq = [
+  {
+    q: "Co přesně znamená „připravený na AI“?",
+    a: "Že Copilot nebo jiný AI asistent nad modelem odpovídá správně. K tomu potřebuje srozumitelné názvy, popisy a čisté relace. Bez nich hádá.",
+  },
+  {
+    q: "Potřebuju mít Copilot, aby audit dával smysl?",
+    a: "Ne. Co pomáhá AI, pomáhá i lidem, kteří s modelem pracují.",
+  },
+  {
+    q: "Měníte model přímo?",
+    a: "Ne. Dostanete seznam úprav a sami se rozhodnete, které uděláte.",
+  },
+  {
+    q: "Kolik to stojí?",
+    a: "Napište mi a domluvíme se podle velikosti modelu.",
+  },
+];
+---
+
+<Base
+  title="Audit Power BI modelu"
+  meta_title="Audit Power BI modelu pro AI | Jakub Vozar"
+  description="Za týden projdu váš Power BI model a řeknu vám, jestli je připravený na AI. Výstup: skóre AI-readiness, seznam úprav, datový slovník."
+>
+  <section class="section-sm">
+    <div class="container">
+      <div class="row justify-center">
+        <div class="lg:col-8">
+          <h1 class="h2 mb-4">Audit Power BI modelu pro AI</h1>
+          <!-- TODO Jakub: přepsat svým hlasem -->
+          <p class="mb-10 text-lg">
+            Za týden projdu váš model a řeknu vám, co AI pochopí, co ne a co s
+            tím udělat.
+          </p>
+
+          <h2 class="h3 mb-6">Co kontroluju</h2>
+          <ul class="mb-12">
+            {
+              checks.map((c) => (
+                <li class="relative mb-4 pl-6">
+                  <FaCheck className={"absolute left-0 top-1.5"} />
+                  <strong>{c.title}.</strong> {c.text}
+                </li>
+              ))
+            }
+          </ul>
+
+          <h2 class="h3 mb-6">Jak týden probíhá</h2>
+          <ol class="mb-12">
+            {
+              steps.map((s) => (
+                <li class="mb-4 rounded-xl bg-theme-light dark:bg-darkmode-theme-light p-5">
+                  <strong class="block mb-1">{s.day}</strong>
+                  {s.text}
+                </li>
+              ))
+            }
+          </ol>
+
+          <h2 class="h3 mb-6">Co dostanete</h2>
+          <ul class="mb-12">
+            {
+              outputs.map((o) => (
+                <li class="relative mb-4 pl-6">
+                  <FaCheck className={"absolute left-0 top-1.5"} />
+                  {o}
+                </li>
+              ))
+            }
+          </ul>
+
+          <h2 class="h3 mb-6">Časté otázky</h2>
+          <div class="mb-12">
+            {
+              faq.map((f) => (
+                <details class="mb-3 rounded-xl border border-border dark:border-darkmode-border p-5">
+                  <summary class="cursor-pointer font-semibold">{f.q}</summary>
+                  <p class="mt-3">{f.a}</p>
+                </details>
+              ))
+            }
+          </div>
+
+          <div class="text-center">
+            <a class="btn btn-primary" href="/kontakt">Domluvit audit</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
