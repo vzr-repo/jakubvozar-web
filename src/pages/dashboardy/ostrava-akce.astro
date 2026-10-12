@@ -1,5 +1,5 @@
 ---
-import ChartPlaceholder from "@/components/ChartPlaceholder.astro";
+import OstravaChart from "@/components/OstravaChart.astro";
 import DashboardPage from "@/partials/DashboardPage.astro";
 ---
 
@@ -10,16 +10,29 @@ import DashboardPage from "@/partials/DashboardPage.astro";
   sources={[
     { name: "CityVizor – akce a platby", url: "https://cityvizor.cz" },
   ]}
-  dataFiles={["akce", "rozpocet_akce", "platby_akce"]}
+  updated="každou noc"
+  dataFiles={["web_akce_top", "web_vox", "web_dodavatele_top", "akce", "rozpocet_akce", "platby_akce"]}
 >
-  <ChartPlaceholder slot="chart" label="Rozpočet a čerpání akcí" />
+  <div slot="chart" class="space-y-10">
+    <div>
+      <h2 class="h5 mb-3">25 akcí s největší skutečností (od roku 2019)</h2>
+      <OstravaChart name="akce-top" minHeight={760} />
+    </div>
+    <div>
+      <h2 class="h5 mb-3">VOX tracker</h2>
+      <OstravaChart name="vox" />
+    </div>
+    <div>
+      <h2 class="h5 mb-3">25 dodavatelů s největším objemem plateb na akce</h2>
+      <OstravaChart name="dodavatele-top" minHeight={760} />
+    </div>
+  </div>
 
   <ul slot="facts">
-    <li>Seznam akcí (ORG) s obvodem, oblastí a stavem.</li>
+    <li>Seznam akcí (ORG) magistrátu a 11 obvodů s obvodem, oblastí a stavem.</li>
     <li>Rozpočet a čerpání každé akce po letech.</li>
     <li>Jednotlivé platby navázané na akce: dodavatel, IČO, částka, datum.</li>
-    <li>VOX tracker: rozpočet a platby akce VOX (ORG 8230) po letech.</li>
-    <!-- TODO Jakub: doplnit 1–2 konkrétní čísla, až budou data z exportu -->
+    <li>VOX (ORG 8230): v roce 2025 skutečnost 66,3 mil. Kč (CityVizor).</li>
   </ul>
 
   <div slot="how">

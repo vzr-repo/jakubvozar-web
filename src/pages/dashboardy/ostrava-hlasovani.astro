@@ -1,5 +1,5 @@
 ---
-import ChartPlaceholder from "@/components/ChartPlaceholder.astro";
+import OstravaChart from "@/components/OstravaChart.astro";
 import DashboardPage from "@/partials/DashboardPage.astro";
 ---
 
@@ -11,15 +11,25 @@ import DashboardPage from "@/partials/DashboardPage.astro";
     { name: "Výsledky hlasování zastupitelstva – ostrava.cz", url: "https://www.ostrava.cz" },
     { name: "Zvolení zastupitelé, volby 2022 – volby.cz", url: "https://www.volby.cz" },
   ]}
-  dataFiles={["hlasovani", "hlasy", "zastupitele"]}
+  updated="každou noc"
+  dataFiles={["web_hlasovani_listiny", "hlasovani", "hlasy", "zastupitele"]}
 >
-  <ChartPlaceholder slot="chart" label="Hlasování podle kandidátních listin" />
+  <div slot="chart" class="space-y-10">
+    <div>
+      <h2 class="h5 mb-3">Hlasy podle kandidátních listin: všechna hlasování</h2>
+      <OstravaChart name="hlasovani-listiny" />
+    </div>
+    <div>
+      <h2 class="h5 mb-3">Hlasy podle kandidátních listin: hlasování k akcím</h2>
+      <OstravaChart name="hlasovani-listiny-akce" />
+    </div>
+  </div>
 
   <ul slot="facts">
-    <li>Všechna hlasování zastupitelstva v období 2022–2026, jak je zveřejňuje ostrava.cz.</li>
+    <li>Všechna hlasování zastupitelstva v období 2022–2026, jak je zveřejňuje ostrava.cz (k 12. 10. 2026 jich bylo 2 296).</li>
     <li>Jmenovité hlasy: pro, proti, zdržel se, nehlasoval.</li>
     <li>Zastupitelé s kandidátní listinou a stranou podle volby.cz.</li>
-    <li>Hlasování spárovaná s akcemi z rozpočtu, kde to jde.</li>
+    <li>„Hlasování k akcím“ jsou ta, která se podle klíčových slov v názvu dají spárovat s akcí z rozpočtu.</li>
   </ul>
 
   <div slot="how">

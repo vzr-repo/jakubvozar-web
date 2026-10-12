@@ -12,7 +12,19 @@ const tables = [
   { name: "hlasy", text: "Jmenovité hlasy zastupitelů." },
   { name: "zastupitele", text: "Zastupitelé 2022–2026, kandidátní listina a strana (volby.cz KV2022)." },
   { name: "obvody", text: "Číselník 23 městských obvodů a magistrátu." },
-  { name: "zu_obvody", text: "Základní ukazatele rozpočtu obvodů ze závěrečného účtu (příloha 20)." },
+  { name: "zu_obvody", text: "Základní ukazatele rozpočtu všech 23 obvodů, magistrátu a města celkem ze závěrečného účtu (příloha 20), v Kč." },
+];
+
+// Ručně vedené tabulky (jen CSV) a malé agregace pro grafy na webu
+const extra = [
+  { name: "celkove_naklady", text: "Celkové náklady vybraných akcí mimo CityVizor, se zdrojem a odkazem (ručně)." },
+  { name: "puvodni_plan", text: "Původní plán vybraných akcí po letech (ručně)." },
+  { name: "web_rozpocet_roky", text: "Grafy na webu: příjmy a výdaje po letech, bez převodů." },
+  { name: "web_rozpocet_oblasti", text: "Grafy na webu: výdaje po letech a oblastech." },
+  { name: "web_akce_top", text: "Grafy na webu: 25 akcí s největší skutečností." },
+  { name: "web_dodavatele_top", text: "Grafy na webu: 25 dodavatelů s největším objemem plateb na akce." },
+  { name: "web_vox", text: "Grafy na webu: VOX po letech." },
+  { name: "web_hlasovani_listiny", text: "Grafy na webu: hlasy podle kandidátních listin." },
 ];
 
 const sources = [
@@ -82,10 +94,22 @@ const sources = [
               </tbody>
             </table>
           </div>
+          <h3 class="h5 mb-3">Ruční tabulky a agregace pro grafy (jen CSV)</h3>
+          <ul class="mb-6 list-disc pl-5">
+            {
+              extra.map((t) => (
+                <li class="mb-1">
+                  <a href={`${DATA_BASE_URL}/ostrava/${t.name}.csv`} class="underline hover:text-primary"><code>{t.name}</code></a>: {t.text}
+                </li>
+              ))
+            }
+          </ul>
           <p class="mb-10 text-sm text-light">
-            CSV je v UTF-8 se středníkem jako oddělovačem. V tabulce
-            rozpocet_celkem vyřaďte řádky s prevod = „Ano“, jinak se převody
-            mezi magistrátem a obvody započítají dvakrát.
+            CSV je v UTF-8 se středníkem jako oddělovačem. Sloupec prevod v
+            tabulce rozpocet_celkem: „Interní“ (převody mezi vlastními fondy)
+            vyřaďte vždy; „Magistrát-obvody“ vyřaďte, jen když sčítáte
+            magistrát a obvody dohromady, jinak se tyto převody započítají
+            dvakrát.
           </p>
 
           <h2 class="h3 mb-4">Zdroje a licence</h2>
