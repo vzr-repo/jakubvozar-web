@@ -1,0 +1,110 @@
+---
+import Base from "@/layouts/Base.astro";
+import { DATA_BASE_URL } from "@/lib/dashboards";
+
+// Odpovídá TABLES v opendata-platform/src/opendata/export.py
+const tables = [
+  { name: "rozpocet_celkem", text: "Příjmy a výdaje magistrátu a obvodů po letech a paragrafech (CityVizor)." },
+  { name: "rozpocet_akce", text: "Rozpočet a čerpání akcí (ORG) po letech, paragrafech a položkách." },
+  { name: "akce", text: "Seznam akcí s obvodem, hlavní oblastí a stavem." },
+  { name: "platby_akce", text: "Jednotlivé platby navázané na akce (dodavatel, IČO, částka)." },
+  { name: "hlasovani", text: "Hlasování Zastupitelstva města Ostravy, spárování s akcemi." },
+  { name: "hlasy", text: "Jmenovité hlasy zastupitelů." },
+  { name: "zastupitele", text: "Zastupitelé 2022–2026, kandidátní listina a strana (volby.cz KV2022)." },
+  { name: "obvody", text: "Číselník 23 městských obvodů a magistrátu." },
+  { name: "zu_obvody", text: "Základní ukazatele rozpočtu obvodů ze závěrečného účtu (příloha 20)." },
+];
+
+const sources = [
+  { name: "CityVizor", url: "https://cityvizor.cz", text: "účetnictví, akce a platby magistrátu a 11 obvodů" },
+  { name: "ostrava.cz", url: "https://www.ostrava.cz", text: "výsledky hlasování zastupitelstva, závěrečný účet" },
+  { name: "volby.cz", url: "https://www.volby.cz", text: "zvolení zastupitelé a kandidátní listiny" },
+];
+---
+
+<Base
+  title="Data"
+  meta_title="Otevřená data a model pro AI | Jakub Vozar"
+  description="Data za dashboardy Ostravy ke stažení: CSV, Parquet, datový slovník a llms.txt pro AI."
+>
+  <section class="section-sm">
+    <div class="container">
+      <div class="row justify-center">
+        <div class="lg:col-8">
+          <h1 class="h2 mb-4">Model pro AI vedle reportu</h1>
+          <!-- TODO Jakub: přepsat svým hlasem -->
+          <p class="mb-4 text-lg">
+            Data za dashboardy Ostravy jsou veřejná. Ke každé tabulce je popis
+            sloupců, takže je můžete dát rovnou AI asistentovi a ptát se.
+          </p>
+          <p class="mb-10">
+            Je to stejný princip, jaký kontroluju v
+            <a href="/audit" class="underline hover:text-primary">auditu</a>:
+            model, kterému rozumí člověk i AI.
+          </p>
+
+          <h2 class="h3 mb-4">Pro AI</h2>
+          <ul class="mb-10 list-disc pl-5">
+            <li class="mb-2">
+              <a href={`${DATA_BASE_URL}/llms.txt`} class="underline hover:text-primary">llms.txt</a>:
+              přehled dat pro jazykové modely
+            </li>
+            <li class="mb-2">
+              <a href={`${DATA_BASE_URL}/ostrava/datovy_slovnik.json`} class="underline hover:text-primary">datovy_slovnik.json</a>:
+              tabulky, sloupce, popisy, počty řádků
+            </li>
+          </ul>
+
+          <h2 class="h3 mb-4">Tabulky</h2>
+          <div class="mb-10 overflow-x-auto">
+            <table class="w-full text-left">
+              <thead>
+                <tr class="border-b border-border dark:border-darkmode-border">
+                  <th class="py-2 pr-4">Tabulka</th>
+                  <th class="py-2 pr-4">Obsah</th>
+                  <th class="py-2">Stáhnout</th>
+                </tr>
+              </thead>
+              <tbody>
+                {
+                  tables.map((t) => (
+                    <tr class="border-b border-border dark:border-darkmode-border align-top">
+                      <td class="py-2 pr-4"><code>{t.name}</code></td>
+                      <td class="py-2 pr-4">{t.text}</td>
+                      <td class="py-2 whitespace-nowrap">
+                        <a href={`${DATA_BASE_URL}/ostrava/${t.name}.csv`} class="underline hover:text-primary">CSV</a>{" "}
+                        ·{" "}
+                        <a href={`${DATA_BASE_URL}/ostrava/${t.name}.parquet`} class="underline hover:text-primary">Parquet</a>
+                      </td>
+                    </tr>
+                  ))
+                }
+              </tbody>
+            </table>
+          </div>
+          <p class="mb-10 text-sm text-light">
+            CSV je v UTF-8 se středníkem jako oddělovačem. V tabulce
+            rozpocet_celkem vyřaďte řádky s prevod = „Ano“, jinak se převody
+            mezi magistrátem a obvody započítají dvakrát.
+          </p>
+
+          <h2 class="h3 mb-4">Zdroje a licence</h2>
+          <ul class="mb-4 list-disc pl-5">
+            {
+              sources.map((s) => (
+                <li class="mb-2">
+                  <a href={s.url} target="_blank" rel="noopener" class="underline hover:text-primary">{s.name}</a>: {s.text}
+                </li>
+              ))
+            }
+          </ul>
+          <!-- TODO Jakub: doplnit licenci (např. CC BY 4.0) a ověřit podmínky zdrojů -->
+          <p class="mb-4">
+            Data pocházejí z veřejných zdrojů uvedených výše. Data se
+            aktualizují každou noc, závěrečný účet jednou ročně.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
