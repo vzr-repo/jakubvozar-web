@@ -1,0 +1,33 @@
+---
+import ChartPlaceholder from "@/components/ChartPlaceholder.astro";
+import DashboardPage from "@/partials/DashboardPage.astro";
+---
+
+<DashboardPage
+  title="Investiční akce Ostravy"
+  question="Na jaké akce jdou peníze města, kolik se z rozpočtu akce skutečně vyčerpalo a komu se platilo?"
+  description="Investiční a další akce města Ostravy: rozpočet, čerpání, platby dodavatelům. Data z CityVizoru."
+  sources={[
+    { name: "CityVizor – akce a platby", url: "https://cityvizor.cz" },
+  ]}
+  dataFiles={["akce", "rozpocet_akce", "platby_akce"]}
+>
+  <ChartPlaceholder slot="chart" label="Rozpočet a čerpání akcí" />
+
+  <ul slot="facts">
+    <li>Seznam akcí (ORG) s obvodem, oblastí a stavem.</li>
+    <li>Rozpočet a čerpání každé akce po letech.</li>
+    <li>Jednotlivé platby navázané na akce: dodavatel, IČO, částka, datum.</li>
+    <li>VOX tracker: rozpočet a platby akce VOX (ORG 8230) po letech.</li>
+    <!-- TODO Jakub: doplnit 1–2 konkrétní čísla, až budou data z exportu -->
+  </ul>
+
+  <div slot="how">
+    <!-- TODO Jakub: přepsat svým hlasem -->
+    <p>
+      Názvy akcí a platby jsou v CityVizoru v jiných částech API. Spojuju je
+      přes číslo akce (ORG). Platby se stahují po měsících a každou noc se
+      dotahují nové.
+    </p>
+  </div>
+</DashboardPage>

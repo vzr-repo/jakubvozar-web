@@ -1,0 +1,33 @@
+---
+import ChartPlaceholder from "@/components/ChartPlaceholder.astro";
+import DashboardPage from "@/partials/DashboardPage.astro";
+---
+
+<DashboardPage
+  title="Rozpočet Ostravy"
+  question="Kolik Ostrava a její obvody plánovaly utratit, kolik skutečně utratily a za co?"
+  description="Rozpočet magistrátu Ostravy a městských obvodů: plán vs. skutečnost a oblasti výdajů. Data z CityVizoru a závěrečného účtu."
+  sources={[
+    { name: "CityVizor – účetnictví města a obvodů", url: "https://cityvizor.cz" },
+    { name: "Závěrečný účet statutárního města Ostravy", url: "https://www.ostrava.cz" },
+  ]}
+  dataFiles={["rozpocet_celkem", "zu_obvody", "obvody"]}
+>
+  <ChartPlaceholder slot="chart" label="Plán vs. skutečnost po letech" />
+
+  <ul slot="facts">
+    <li>Magistrát a 11 obvodů, které publikují účetnictví na CityVizoru, jsou tu detailně: po letech, oblastech (paragrafech) a položkách.</li>
+    <li>Všech 23 obvodů je tu souhrnně ze závěrečného účtu (příloha 20).</li>
+    <li>Rozpočet po změnách proti skutečnému čerpání.</li>
+    <li>Převody mezi magistrátem a obvody jsou označené, aby se částky nepočítaly dvakrát.</li>
+    <!-- TODO Jakub: doplnit 1–2 konkrétní čísla, až budou data z exportu -->
+  </ul>
+
+  <div slot="how">
+    <!-- TODO Jakub: přepsat svým hlasem -->
+    <p>
+      Data se každou noc stahují z CityVizoru do Postgresu. Odtud jdou do
+      Power BI i do grafu tady na webu. Stahuje se jen to, co se změnilo.
+    </p>
+  </div>
+</DashboardPage>

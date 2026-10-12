@@ -1,0 +1,14 @@
+---
+// Dočasné místo pro graf, dokud nepoběží data.jakubvozar.cz (Krok 2)
+const { label = "Graf" }: { label?: string } = Astro.props;
+---
+
+<div
+  class="flex min-h-[320px] items-center justify-center rounded-xl border border-dashed border-border dark:border-darkmode-border p-6 text-center text-light"
+>
+  <p>
+    {label}: data se právě připravují.<br />
+    Graf tu bude, jakmile poběží
+    <a href="/data" class="underline hover:text-primary">datová platforma</a>.
+  </p>
+</div>
