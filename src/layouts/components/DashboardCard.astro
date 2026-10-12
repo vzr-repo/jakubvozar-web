@@ -1,0 +1,20 @@
+---
+import type { Dashboard } from "@/lib/dashboards";
+
+const { dashboard: d }: { dashboard: Dashboard } = Astro.props;
+---
+
+<div
+  class="bg-theme-light dark:bg-darkmode-theme-light rounded-xl p-6 flex flex-col h-full"
+>
+  <h3 class="h4 mb-3">{d.title}</h3>
+  <p class="text-light mb-4 flex-grow">{d.description}</p>
+  <div class="flex flex-wrap gap-2 mb-5">
+    {
+      d.tags.map((tag) => (
+        <span class="badge badge-outline-primary text-xs">{tag}</span>
+      ))
+    }
+  </div>
+  <a href={d.url} class="btn btn-outline-primary btn-sm">Otevřít dashboard →</a>
+</div>

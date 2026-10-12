@@ -1,0 +1,42 @@
+---
+import OstravaChart from "@/components/OstravaChart.astro";
+import DashboardPage from "@/partials/DashboardPage.astro";
+---
+
+<DashboardPage
+  title="Rozpočet Ostravy"
+  question="Kolik Ostrava a její obvody plánovaly utratit, kolik skutečně utratily a za co?"
+  description="Rozpočet magistrátu Ostravy a městských obvodů: plán vs. skutečnost a oblasti výdajů. Data z CityVizoru a závěrečného účtu."
+  sources={[
+    { name: "CityVizor – účetnictví města a obvodů", url: "https://cityvizor.cz" },
+    { name: "Závěrečný účet statutárního města Ostravy za rok 2025", url: "https://ostrava.cz/cs/urad/magistrat/odbory-magistratu/odbor-financi-a-rozpoctu/oddeleni-rozpoctove/odkazy/zpravy/zaverecny-ucet-statutarniho-mesta-ostravy-za-rok-2025" },
+  ]}
+  updated="každou noc, závěrečný účet jednou ročně"
+  dataFiles={["web_rozpocet_roky", "web_rozpocet_oblasti", "zu_obvody", "rozpocet_celkem"]}
+>
+  <div slot="chart" class="space-y-10">
+    <div>
+      <h2 class="h5 mb-3">Magistrát + 11 obvodů: rozpočet vs. skutečnost</h2>
+      <OstravaChart name="rozpocet-roky" />
+    </div>
+    <OstravaChart name="rozpocet-oblasti" />
+    <OstravaChart name="zu-obvody" minHeight={720} />
+  </div>
+
+  <ul slot="facts">
+    <li>Magistrát v roce 2025 utratil 14,4 mld. Kč z upraveného rozpočtu 14,8 mld. Kč (CityVizor).</li>
+    <li>Všech 23 obvodů dohromady utratilo v roce 2025 5,8 mld. Kč, celé statutární město po odečtení převodů mezi magistrátem a obvody 17,2 mld. Kč (závěrečný účet, příloha 20).</li>
+    <li>Magistrát a 11 obvodů, které publikují účetnictví na CityVizoru, jsou tu detailně: po letech, oblastech (paragrafech) a položkách. Zbylých 12 obvodů jen souhrnně ze závěrečného účtu.</li>
+    <li>Převody mezi magistrátem a obvody a mezi vlastními fondy jsou v datech označené, aby se částky nepočítaly dvakrát.</li>
+  </ul>
+
+  <div slot="how">
+    <!-- TODO Jakub: přepsat svým hlasem -->
+    <p>
+      Data se každou noc stahují z CityVizoru do Postgresu. Odtud jdou do
+      Power BI i do grafů tady na webu. Stahuje se jen to, co se změnilo.
+      Závěrečný účet je PDF, tabulku z něj čtu jednou ročně a kontroluju
+      proti CityVizoru.
+    </p>
+  </div>
+</DashboardPage>

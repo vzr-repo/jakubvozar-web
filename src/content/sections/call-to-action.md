@@ -1,10 +1,11 @@
 ---
-enable: false
-title: "Zajímá tě data engineering nebo trading research?"
+enable: true
+title: "Chcete vědět, jak na tom je váš model?"
 image: "/images/call-to-action.png"
-description: "Podívej se na můj projekt — end-to-end pipeline od stahování dat přes backtesting až po živé dashboardy. Vše open-source na GitHubu."
+# TODO Jakub: přepsat svým hlasem
+description: "Napište mi pár vět o vašem Power BI. Ozvu se a domluvíme se, jestli a jak audit dává smysl."
 button:
-  enable: false
-  label: "Zobrazit Dashboard 📊"
-  link: "/dashboard"
+  enable: true
+  label: "Domluvit audit"
+  link: "/kontakt"
 ---

@@ -1,17 +1,18 @@
 ---
-import ImageMod from "@/components/ImageMod.astro";
+import DashboardCard from "@/components/DashboardCard.astro";
 import Base from "@/layouts/Base.astro";
 import { getListPage } from "@/lib/contentParser.astro";
+import { dashboards } from "@/lib/dashboards";
 import { markdownify } from "@/lib/utils/textConverter";
 import CallToAction from "@/partials/CallToAction.astro";
-import Testimonial from "@/partials/Testimonial.astro";
 import { FaCheck } from "react-icons/fa";
 
 const homepage = await getListPage("homepage", "-index");
 const call_to_action = await getListPage("ctaSection", "call-to-action");
-const testimonial = await getListPage("testimonialSection", "testimonial");
 
-const { banner, features } = homepage.data;
+const { banner, blocks, blocks_button } = homepage.data;
+const dashboardsSection = homepage.data.dashboards;
+const featured = dashboards.filter((d) => d.featured).slice(0, 3);
 ---
 
 <Base>
@@ -19,86 +20,78 @@ const { banner, features } = homepage.data;
   <section class="section pt-14">
     <div class="container">
       <div class="row justify-center">
-        <div class="lg:col-7 md:col-9 mb-8 text-center">
+        <div class="lg:col-8 md:col-10 text-center">
           <h1
             set:html={markdownify(banner.title)}
             class="mb-4 text-h3 lg:text-h1"
           />
-          <p set:html={markdownify(banner.content)} class="mb-8" />
-          {
-            banner.button.enable && (
-              <a
-                class="btn btn-primary"
-                href={banner.button.link}
-                target={
-                  banner.button.link.startsWith("http") ? "_blank" : "_self"
-                }
-                rel="noopener"
-              >
-                {banner.button.label}
-              </a>
-            )
-          }
+          <p set:html={markdownify(banner.content)} class="mb-8 text-lg" />
+          <div class="flex flex-wrap justify-center gap-4">
+            {
+              banner.buttons.map((b) => (
+                <a
+                  class={`btn ${b.primary ? "btn-primary" : "btn-outline-primary"}`}
+                  href={b.link}
+                >
+                  {b.label}
+                </a>
+              ))
+            }
+          </div>
         </div>
-        {
-          banner.image && (
-            <div class="col-12">
-              <ImageMod
-                src={banner.image}
-                height={380}
-                width={1200}
-                alt="banner"
-                format="webp"
-              />
-            </div>
-          )
-        }
       </div>
     </div>
   </section>
   <!-- /Banner -->
 
-  <!-- Features -->
-  {
-    features.map((feature, index: number) => (
-      <section class={`section-sm ${index % 2 === 0 && "bg-gradient"}`}>
-        <div class="container">
-          <div class="row items-center justify-between">
-            <div
-              class={`mb:md-0 mb-6 md:col-5 ${index % 2 !== 0 && "md:order-2"}`}
-            >
-              <ImageMod
-                src={feature.image}
-                height={480}
-                width={520}
-                alt={feature.title}
-                format="webp"
-              />
-            </div>
-            <div class={`md:col-7 lg:col-6 ${index % 2 !== 0 && "md:order-1"}`}>
-              <h2 set:html={markdownify(feature.title)} class="mb-4" />
-              <p set:html={markdownify(feature.content)} class="mb-8 text-lg" />
+  <!-- Audit blocks -->
+  <section class="section-sm bg-gradient">
+    <div class="container">
+      <div class="row gy-5">
+        {
+          blocks.map((block) => (
+            <div class="md:col-4">
+              <h2 set:html={markdownify(block.title)} class="h4 mb-4" />
               <ul>
-                {feature.bulletpoints.map((bullet: string) => (
-                  <li class="relative mb-4 pl-6">
+                {block.bulletpoints.map((bullet: string) => (
+                  <li class="relative mb-3 pl-6">
                     <FaCheck className={"absolute left-0 top-1.5"} />
                     <span set:html={markdownify(bullet)} />
                   </li>
                 ))}
               </ul>
-              {feature.button.enable && (
-                <a class="btn btn-primary mt-5" href={feature.button.link}>
-                  {feature.button.label}
-                </a>
-              )}
             </div>
-          </div>
-        </div>
-      </section>
-    ))
-  }
-  <!-- /Features -->
+          ))
+        }
+      </div>
+      <div class="mt-8 text-center">
+        <a class="btn btn-outline-primary" href={blocks_button.link}>
+          {blocks_button.label}
+        </a>
+      </div>
+    </div>
+  </section>
+  <!-- /Audit blocks -->
 
-  <Testimonial testimonial={testimonial} />
+  <!-- Dashboards -->
+  <section class="section-sm">
+    <div class="container">
+      <div class="mb-8 text-center">
+        <h2 set:html={markdownify(dashboardsSection.title)} class="mb-3" />
+        <p set:html={markdownify(dashboardsSection.content)} />
+      </div>
+      <div class="row gy-4">
+        {
+          featured.map((d) => (
+            <div class="md:col-6 lg:col-4">
+              <DashboardCard dashboard={d} />
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+  <!-- /Dashboards -->
+
   <CallToAction call_to_action={call_to_action} />
 </Base>

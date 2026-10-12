@@ -80,26 +80,25 @@ const homepageCollection = defineCollection({
     banner: z.object({
       title: z.string(),
       content: z.string(),
-      image: z.string(),
-      button: z.object({
-        enable: z.boolean(),
-        label: z.string(),
-        link: z.string(),
-      }),
-    }),
-    features: z.array(
-      z.object({
-        title: z.string(),
-        image: z.string(),
-        content: z.string(),
-        bulletpoints: z.array(z.string()),
-        button: z.object({
-          enable: z.boolean(),
+      buttons: z.array(
+        z.object({
           label: z.string(),
           link: z.string(),
+          primary: z.boolean().default(false),
         }),
+      ),
+    }),
+    blocks: z.array(
+      z.object({
+        title: z.string(),
+        bulletpoints: z.array(z.string()),
       }),
     ),
+    blocks_button: z.object({ label: z.string(), link: z.string() }),
+    dashboards: z.object({
+      title: z.string(),
+      content: z.string(),
+    }),
   }),
 });
 
@@ -122,27 +121,6 @@ const ctaSectionCollection = defineCollection({
   }),
 });
 
-// Testimonials Section collection schema
-const testimonialSectionCollection = defineCollection({
-  loader: glob({
-    pattern: "testimonial.{md,mdx}",
-    base: "src/content/sections",
-  }),
-  schema: z.object({
-    enable: z.boolean(),
-    title: z.string(),
-    description: z.string(),
-    testimonials: z.array(
-      z.object({
-        name: z.string(),
-        avatar: z.string(),
-        designation: z.string(),
-        content: z.string(),
-      }),
-    ),
-  }),
-});
-
 // Export collections
 export const collections = {
   // Pages
@@ -155,5 +133,4 @@ export const collections = {
 
   // sections
   ctaSection: ctaSectionCollection,
-  testimonialSection: testimonialSectionCollection,
 };

@@ -1,64 +1,54 @@
 {
   "main": [
     {
-      "name": "Home",
-      "url": "/"
+      "name": "Audit",
+      "url": "/audit"
     },
     {
-      "name": "About",
-      "url": "/about"
+      "name": "Dashboardy",
+      "url": "/dashboardy"
     },
     {
-      "name": "Dashboards",
-      "url": "/dashboards",
-      "hasChildren": true,
-      "children": [
-        {
-          "name": "Všechny dashboardy",
-          "url": "/dashboards"
-        },
-        {
-          "name": "Trading Backtest",
-          "url": "/dashboards/trading-backtest"
-        }
-      ]
-    },
-    {
-      "name": "Games",
-      "url": "/python",
-      "hasChildren": true,
-      "children": [
-        {
-          "name": "PyDrill — Python",
-          "url": "/python"
-        },
-        {
-          "name": "Data Engineering Quest",
-          "url": "/quiz"
-        },
-        {
-          "name": "SQL Playground",
-          "url": "/sql-playground"
-        }
-      ]
+      "name": "Data",
+      "url": "/data"
     },
     {
       "name": "Blog",
       "url": "/blog"
+    },
+    {
+      "name": "O mně",
+      "url": "/o-mne"
     }
   ],
   "footer": [
     {
-      "name": "Blog",
-      "url": "/blog"
+      "name": "Audit",
+      "url": "/audit"
     },
     {
-      "name": "Dashboards",
-      "url": "/dashboards"
+      "name": "Dashboardy",
+      "url": "/dashboardy"
+    },
+    {
+      "name": "Trading backtest",
+      "url": "/dashboardy/trading-backtest"
     },
     {
       "name": "PyDrill — Python",
       "url": "/python"
+    },
+    {
+      "name": "Data Engineering Quest",
+      "url": "/quiz"
+    },
+    {
+      "name": "SQL Playground",
+      "url": "/sql-playground"
+    },
+    {
+      "name": "Kontakt",
+      "url": "/kontakt"
     }
   ]
 }

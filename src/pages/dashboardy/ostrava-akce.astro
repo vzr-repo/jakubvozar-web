@@ -1,0 +1,46 @@
+---
+import OstravaChart from "@/components/OstravaChart.astro";
+import DashboardPage from "@/partials/DashboardPage.astro";
+---
+
+<DashboardPage
+  title="Investiční akce Ostravy"
+  question="Na jaké akce jdou peníze města, kolik se z rozpočtu akce skutečně vyčerpalo a komu se platilo?"
+  description="Investiční a další akce města Ostravy: rozpočet, čerpání, platby dodavatelům. Data z CityVizoru."
+  sources={[
+    { name: "CityVizor – akce a platby", url: "https://cityvizor.cz" },
+  ]}
+  updated="každou noc"
+  dataFiles={["web_akce_top", "web_vox", "web_dodavatele_top", "akce", "rozpocet_akce", "platby_akce"]}
+>
+  <div slot="chart" class="space-y-10">
+    <div>
+      <h2 class="h5 mb-3">25 akcí s největší skutečností (od roku 2019)</h2>
+      <OstravaChart name="akce-top" minHeight={760} />
+    </div>
+    <div>
+      <h2 class="h5 mb-3">VOX tracker</h2>
+      <OstravaChart name="vox" />
+    </div>
+    <div>
+      <h2 class="h5 mb-3">25 dodavatelů s největším objemem plateb na akce</h2>
+      <OstravaChart name="dodavatele-top" minHeight={760} />
+    </div>
+  </div>
+
+  <ul slot="facts">
+    <li>Seznam akcí (ORG) magistrátu a 11 obvodů s obvodem, oblastí a stavem.</li>
+    <li>Rozpočet a čerpání každé akce po letech.</li>
+    <li>Jednotlivé platby navázané na akce: dodavatel, IČO, částka, datum.</li>
+    <li>VOX (ORG 8230): v roce 2025 skutečnost 66,3 mil. Kč (CityVizor).</li>
+  </ul>
+
+  <div slot="how">
+    <!-- TODO Jakub: přepsat svým hlasem -->
+    <p>
+      Názvy akcí a platby jsou v CityVizoru v jiných částech API. Spojuju je
+      přes číslo akce (ORG). Platby se stahují po měsících a každou noc se
+      dotahují nové.
+    </p>
+  </div>
+</DashboardPage>

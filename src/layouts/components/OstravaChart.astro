@@ -1,0 +1,20 @@
+---
+// Plotly graf nad daty z data.jakubvozar.cz; kreslí ho src/scripts/ostrava-charts.ts (název = klíč v CHARTS).
+interface Props {
+  name: string;
+  minHeight?: number;
+}
+const { name, minHeight = 420 }: Props = Astro.props;
+---
+
+<div
+  data-ostrava-chart={name}
+  class="chart-loading w-full min-w-0 max-w-full overflow-hidden rounded-xl border border-border dark:border-darkmode-border flex items-center justify-center text-light"
+  style={`min-height: ${minHeight}px`}
+>
+  Načítám graf…
+</div>
+
+<script>
+  import "@/scripts/ostrava-charts";
+</script>

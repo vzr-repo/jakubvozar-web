@@ -1,0 +1,11 @@
+# Cloudflare static assets redirects
+/dashboard                     /dashboardy/trading-backtest  301
+/dashboard/                    /dashboardy/trading-backtest  301
+/dashboards                    /dashboardy                   301
+/dashboards/                   /dashboardy                   301
+/dashboards/trading-backtest   /dashboardy/trading-backtest  301
+/dashboards/trading-backtest/  /dashboardy/trading-backtest  301
+/about                         /o-mne                        301
+/about/                        /o-mne                        301
+/contact                       /kontakt                      301
+/contact/                      /kontakt                      301

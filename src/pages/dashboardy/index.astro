@@ -1,0 +1,32 @@
+---
+import DashboardCard from "@/components/DashboardCard.astro";
+import Base from "@/layouts/Base.astro";
+import { dashboards } from "@/lib/dashboards";
+---
+
+<Base
+  title="Dashboardy"
+  meta_title="Dashboardy | Jakub Vozar"
+  description="Dashboardy z otevřených dat: rozpočet Ostravy, investiční akce, hlasování zastupitelstva. A jeden trading backtest."
+>
+  <section class="section-sm">
+    <div class="container">
+      <h1 class="h2 mb-2">Dashboardy</h1>
+      <!-- TODO Jakub: přepsat svým hlasem -->
+      <p class="mb-10 text-light">
+        Stavím je na otevřených datech. Každý má pod sebou zdroje a data ke
+        stažení, takže si můžete všechno přepočítat sami.
+      </p>
+
+      <div class="row gy-4">
+        {
+          dashboards.map((d) => (
+            <div class="md:col-6 lg:col-4">
+              <DashboardCard dashboard={d} />
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</Base>
