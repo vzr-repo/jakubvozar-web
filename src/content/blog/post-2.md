@@ -107,7 +107,7 @@ Výsledky byly… poučné. SMA crossover na hodinových datech EUR/USD sice gen
 
 To je přesně důvod, proč backtesting existuje — ne aby ti řekl, co obchodovat, ale aby tě konfrontoval s realitou dřív, než vložíš skutečné peníze. Brokeři velmi rádi propagují podobné strategie právě proto, že generují hodně obchodů a tím pádem hodně poplatků — pro ně.
 
-Dashboard s výsledky si můžeš prohlédnout zde → [Trading Backtest Dashboard](/dashboards/trading-backtest/)
+Dashboard s výsledky si můžeš prohlédnout zde → [Trading Backtest Dashboard](/dashboardy/trading-backtest)
 
 ## Co přijde dál
 

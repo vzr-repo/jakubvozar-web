@@ -1,0 +1,118 @@
+---
+// Kostra stránky dashboardu: otázka · graf · co v datech je · zdroje · pro AI · jak je to postavené
+import Base from "@/layouts/Base.astro";
+import { DATA_BASE_URL } from "@/lib/dashboards";
+
+export interface Source {
+  name: string;
+  url: string;
+}
+
+interface Props {
+  title: string;
+  question: string;
+  description: string;
+  sources: Source[];
+  updated?: string;
+  dataFiles?: string[];
+}
+
+const {
+  title,
+  question,
+  description,
+  sources,
+  updated,
+  dataFiles = [],
+}: Props = Astro.props;
+---
+
+<Base
+  title={title}
+  meta_title={`${title} | Jakub Vozar`}
+  description={description}
+>
+  <section class="section-sm">
+    <div class="container">
+      <nav class="mb-4 text-sm text-light">
+        <a href="/dashboardy" class="hover:text-primary">Dashboardy</a>
+        <span class="mx-2">/</span>
+        <span>{title}</span>
+      </nav>
+
+      <h1 class="h2 mb-4">{title}</h1>
+      <p class="mb-8 text-lg">{question}</p>
+
+      <div class="mb-12">
+        <slot name="chart" />
+      </div>
+
+      <div class="row gy-5">
+        <div class="lg:col-7">
+          <h2 class="h4 mb-4">Co v datech je</h2>
+          <div class="content">
+            <slot name="facts" />
+          </div>
+
+          <h2 class="h4 mb-4 mt-10">Jak je to postavené</h2>
+          <div class="content">
+            <slot name="how" />
+          </div>
+        </div>
+
+        <aside class="lg:col-5">
+          <div class="bg-theme-light dark:bg-darkmode-theme-light rounded-xl p-6 mb-6">
+            <h2 class="h5 mb-3">Zdroje</h2>
+            <ul class="list-disc pl-5">
+              {
+                sources.map((s) => (
+                  <li class="mb-1">
+                    <a href={s.url} target="_blank" rel="noopener" class="hover:text-primary underline">
+                      {s.name}
+                    </a>
+                  </li>
+                ))
+              }
+            </ul>
+            <p class="mt-3 text-sm text-light">
+              Aktualizace: {updated ?? "data se připravují"}
+            </p>
+          </div>
+
+          {
+            dataFiles.length > 0 && (
+              <div class="bg-theme-light dark:bg-darkmode-theme-light rounded-xl p-6">
+                <h2 class="h5 mb-3">Pro AI</h2>
+                <p class="mb-3 text-sm">
+                  Stejná data jako v grafu, i s popisem sloupců. Můžete je dát
+                  přímo AI asistentovi.
+                </p>
+                <ul class="list-disc pl-5">
+                  <li class="mb-1">
+                    <a href={`${DATA_BASE_URL}/ostrava/datovy_slovnik.json`} class="hover:text-primary underline">
+                      Datový slovník (JSON)
+                    </a>
+                  </li>
+                  {dataFiles.map((f) => (
+                    <li class="mb-1">
+                      <a href={`${DATA_BASE_URL}/ostrava/${f}.csv`} class="hover:text-primary underline">
+                        {f}.csv
+                      </a>{" "}
+                      ·{" "}
+                      <a href={`${DATA_BASE_URL}/ostrava/${f}.parquet`} class="hover:text-primary underline">
+                        parquet
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+                <p class="mt-3 text-sm">
+                  Víc na stránce <a href="/data" class="underline hover:text-primary">Data</a>.
+                </p>
+              </div>
+            )
+          }
+        </aside>
+      </div>
+    </div>
+  </section>
+</Base>
