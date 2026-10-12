@@ -1,7 +1,7 @@
 ---
-title: "Authors"
+title: "Autoři"
 meta_title: ""
-description: "this is meta description"
+description: "Kdo tady píše"
 image: ""
 draft: false
 ---
