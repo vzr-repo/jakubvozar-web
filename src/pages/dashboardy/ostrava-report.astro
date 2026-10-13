@@ -1,0 +1,80 @@
+---
+import DashboardPage from "@/partials/DashboardPage.astro";
+
+// Power BI „Publish to web“ – veřejný odkaz na report (data z data.jakubvozar.cz, obnova každé ráno)
+const REPORT_URL =
+  "https://app.powerbi.com/view?r=eyJrIjoiMzlhMDFiZjItZDdmYy00NzY0LTg1YjgtYmRhY2M1ZTFlNmRiIiwidCI6Ijk4OGQ0ODc0LWRmNjYtNDU1ZS1iZDk0LTZmZTFhMzA1Nzk1MyJ9";
+---
+
+<DashboardPage
+  title="Jak je na tom Ostrava"
+  question="Jak se v Ostravě žije podle otevřených dat: obyvatelé, bezpečnost, ovzduší, práce, školy a co kde ve městě je?"
+  description="Interaktivní Power BI report o Ostravě z otevřených dat: obyvatelé, kriminalita, ovzduší od 90. let, nezaměstnanost, školy a mapa města. Každé číslo se zdrojem."
+  sources={[
+    { name: "Otevřená data Ostravy (obyvatelé, Městská policie, školky)", url: "https://opendata.ostrava.cz" },
+    { name: "Geoportál města Ostravy", url: "https://mapy.ostrava.cz" },
+    { name: "Mapa kriminality Policie ČR", url: "https://kriminalita.policie.gov.cz" },
+    { name: "ČHMÚ – kvalita ovzduší", url: "https://opendata.chmi.cz/air_quality/" },
+    { name: "MPSV – nezaměstnanost v obcích", url: "https://data.mpsv.cz" },
+    { name: "Rejstřík škol MŠMT", url: "https://data.gov.cz" },
+    { name: "RÚIAN – adresy a městské obvody (ČÚZK)", url: "https://vdp.cuzk.cz" },
+    { name: "© OpenStreetMap contributors", url: "https://www.openstreetmap.org/copyright" },
+    { name: "CityVizor – rozpočet města a obvodů", url: "https://cityvizor.cz" },
+  ]}
+  updated="data každou noc, report každé ráno"
+  dataFiles={["obyvatele", "kriminalita_lokality", "ovzdusi_rok", "nezamestnanost", "skoly", "mapa_body", "anomalie_zdroju"]}
+>
+  <div slot="chart">
+    <div class="pbi-embed rounded-xl overflow-hidden border border-border dark:border-darkmode-border">
+      <iframe
+        title="Jak je na tom Ostrava – Power BI report"
+        src={REPORT_URL}
+        loading="lazy"
+        allowfullscreen
+      ></iframe>
+    </div>
+    <p class="mt-3 text-sm text-light">
+      Stránky přepínáte šipkami dole v reportu.
+      <a href={REPORT_URL} target="_blank" rel="noopener" class="underline hover:text-primary">Otevřít report na celou obrazovku</a>
+      (na mobilu je to pohodlnější).
+    </p>
+  </div>
+
+  <ul slot="facts">
+    <li>Ostrava má 283 tisíc obyvatel s trvalým pobytem, za posledních 12 měsíců o 3 299 méně (data města, září 2026).</li>
+    <li>Podíl nezaměstnaných je 8,0 % (září 2026). Praha má 3,7 %, Brno 5,8 % (MPSV).</li>
+    <li>Ovzduší se výrazně zlepšilo: na nejhorší stanici bylo v roce 2005 165 dnů nad denním limitem prachu PM10, v roce 2025 jich bylo 21. Benzo(a)pyren klesl z 4,9 na 1,4 ng/m³, pořád ale nad limitem 1 ng/m³ (ČHMÚ).</li>
+    <li>Policie ČR v Ostravě evidovala v roce 2025 9 003 vybraných trestných činů, u 38,6 % zjistila pravděpodobného pachatele. Místa jsou kvůli ochraně osob anonymizovaná na střed oblasti.</li>
+    <li>Mateřské školy mají v rejstříku MŠMT kapacitu 10 597 dětí. Datová sada města uvádí 8 474, protože počítá jen školky, které zřizuje město.</li>
+  </ul>
+
+  <div slot="how">
+    <!-- TODO Jakub: přepsat svým hlasem -->
+    <p>
+      Každou noc se na mém serveru stahuje dvanáct zdrojů: data města, Policie ČR, ČHMÚ, MPSV, MŠMT,
+      RÚIAN a OpenStreetMap. Stahuje se jen to, co se změnilo. Všechno se přiřadí k městským obvodům
+      přes adresy z RÚIAN a uloží do Postgresu. Power BI pak čte jen hotové tabulky z data.jakubvozar.cz,
+      takže obnova trvá sekundy.
+    </p>
+    <p>
+      Kde zdroj chybí nebo je špatně (třeba měsíc s 676 obyvateli místo 286 tisíc), data neopravuju,
+      ale vyřadím a zapíšu do přehledu chyb ve zdrojích.
+    </p>
+  </div>
+</DashboardPage>
+
+<style>
+  /* 16:9 stránka reportu + 56 px lišta Power BI */
+  .pbi-embed {
+    position: relative;
+    width: 100%;
+    padding-bottom: calc(56.25% + 56px);
+  }
+  .pbi-embed iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+</style>
