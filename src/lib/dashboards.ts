@@ -9,6 +9,14 @@ export interface Dashboard {
 
 export const dashboards: Dashboard[] = [
   {
+    title: "Jak je na tom Ostrava",
+    description:
+      "Interaktivní Power BI report: obyvatelé, bezpečnost, ovzduší od 90. let, práce, školy a mapa města.",
+    tags: ["Ostrava", "Power BI", "Mapa"],
+    url: "/dashboardy/ostrava-report",
+    featured: true,
+  },
+  {
     title: "Rozpočet Ostravy",
     description:
       "Kolik magistrát a obvody plánovaly a kolik skutečně utratily. Podle oblastí a let.",
